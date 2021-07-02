@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+    演示回调地狱
+      请求数据a
+      成功后，请求数据b
+      成功后，请求数据c
+      成功后，显示数据c
+
+      使用打印和定时器模拟
+
+      回调地狱: 回调函数层层嵌套
+    */
+    console.log('发送异步请示1, 获取数据a')
+    setTimeout(() => {
+      console.log('得到请求1的数据a', '发送异步请求2, 获取数据b')
+      setTimeout(() => {
+        console.log('得到请求2的数据b', '发送异步请求3, 获取数据c')
+        setTimeout(() => {
+          console.log('得到请求3的数据c, 去显示')
+        }, 1000);
+      }, 1000)
+    }, 1000)
+
+    /* 演示回调地狱的伪代码 */
+    doSomething(function(result) {
+      doSomethingElse(result, function(newResult) {
+        doThirdThing(newResult, function(finalResult) {
+          console.log('Got the final result: ' + finalResult)
+        }, failureCallback)
+      }, failureCallback)
+    }, failureCallback)
+
+    /* 演示Promise解决回调地狱问题 */
+    doSomething()
+      .then(function(result) {
+        return doSomethingElse(result);
+      })
+      .then(function(newResult) {
+        return doThirdThing(newResult);
+      })
+      .then(function(finalResult) {
+        console.log('Got the final result: ' + finalResult);
+      })
+      .catch(failureCallback);
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    // const obj = {m: 1}  
+    // console.log(obj)  // 打印快照: 输出时对象的样子
+    // obj.m = 2
+
+
+    /* 
+    - Promise构造函数, 接收一个称为executor/执行器的回调函数，
+    - Promise内部会立即调用executor，并传入2个函数，一般分别称为resolve与reject
+    - 在executor函数中，我们一般都会立即启动异步任务(比如发ajax请求，启动定时器任务)，
+      - 如果异步任务成功，调用resolve并指定成功的value
+      - 如果异步任务失败，调用reject并指定失败的reason 
+    */
+    // 创建promise对象
+    const p = new Promise((resolve, reject) => { 
+      // executor 执行器 ==> 用来执行异步操作 
+      // executor是同步回调函数
+      console.log('执行器回调执行了')
+
+      // 模拟发送一个异步请求
+      setTimeout(() => {
+        // 通过当前时间值是否是奇数来标识是否成功
+        const isSuccess = Date.now() %2 === 1
+        // 如果成功了, 调用resolve来指定成功的value数据
+        if (isSuccess) {
+          resolve('成功的数据')
+        } else {
+          // 如果失败了, 调用reject来指定失败的reason
+          reject('失败的原因')
+        }
+      }, 1000)
+
+    }) 
+    console.log('new Promise()之后')
+    console.log(p)
+
+    setTimeout(() => {
+      console.log(p)
+    }, 1100)
+
+  </script>
+</body>
+</html>

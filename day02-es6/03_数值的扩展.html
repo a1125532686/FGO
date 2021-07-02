@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const {log} = console
+    /* 指数运算符 */
+    // //求 一个数字的 n次方
+    // log(Math.pow(3, 3))
+    // log(Math.pow(30, 7))
+
+    // //es2016 提出了新的方法求一个值的n次方  那就是 ** 操作符
+    // log(3 ** 3)
+    // log(30 ** 7)
+
+
+    /* 进制写法 */
+    // const n1 =  0b00001111 // 二进制数
+    // const n2 = 0o17 // 八进制数
+    // log(n1, n2) //15 15
+
+    /*
+      Math.trunc()去除小数部分
+    */
+    log(Math.floor(1.33)) //1
+    log(Math.ceil(1.33)) //2
+    log(Math.trunc(1.33)) //1
+    log(Math.floor(-1.33)) //-2
+    log(Math.ceil(-1.33)) //-1
+    log(Math.trunc(-1.33)) //-1
+
+    /*
+        Math.sqrt()平方根
+        Math.cbrt()立方根
+        Math.hypot() 求所有参数平方和的平方根
+    */
+    log(Math.sqrt(9)) //3
+    log(Math.cbrt(27)) //3
+    log(Math.hypot(3, 4)) //5
+
+  </script>
+</body>
+</html>

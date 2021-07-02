@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    /* 演示问题：属性名重名冲突 */
+    // function fn(obj) {
+    //   // 想给obj添加一个新属性 =》 问题是传入的obj可能已经有了name属性
+    //   obj.name = 'atguigu'
+    //   obj.foo()
+    // }
+    // const obj = {
+    //   name: 'abc',
+    //   age: 12,
+    //   foo () {
+    //     console.log(this.name, this.age)
+    //   }
+    // }
+    // obj.foo()
+    // fn(obj)
+    /* 
+    如何给对象添加一个属性名独一无二的属性， 不与已经属性或后面添加的属性都不重名？
+    */
+
+
+    /* 简单使用symbol */
+
+    // const s1 = Symbol()
+    // const s2 = Symbol('name')
+    // const s3 = Symbol('age')
+    // console.log(s1, typeof s1)
+    // console.log(s2, s3, s1===s2, s2===s3)
+
+    /* 
+    将symbol作为一个独一无二的属性名
+    */
+    // const obj = {
+    //   name: 'tom',
+    //   foo () {
+    //     console.log('foo')
+    //   }
+    // }
+    // // 产生symbol值
+    // const name = Symbol('name2')
+    // const foo = Symbol('foo2')
+    // obj[name] = 'tom222'
+    // obj[foo] = function (params) {
+    //   console.log('foo222')
+    // }
+    // console.log(obj)
+    // console.log(obj[name])
+    // obj[foo]()
+
+    /* 
+    bigInt: 可以用来表达更大的整数
+    */
+    /* 定义一个bigint值 */
+    const n1 = 123n
+    console.log(n1, typeof n1) // 123n "bigint"
+    console.log(123===n1) // false
+
+    /* 将一个一般的整数转换为大整数 */
+    const n2 = 234
+    const n3 = BigInt(n2)
+    console.log(n3, n3===n2) // 234n false
+
+    const max = Number.MAX_SAFE_INTEGER
+    console.log(max)
+    console.log(max + 1)
+    console.log(max + 2) // 不能再变大
+
+    const bMax = BigInt(max)
+    console.log(bMax)
+    console.log(bMax + 1n)
+    console.log(bMax + 20n)  
+    /* bigInt可以存储比一般的整数更大的值 */
+
+
+
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+    存取器属性     (次重要)
+    - get propertyName(){} 用来得到当前属性值的回调函数  ==> getter
+    - set propertyName(value){} 用来监视当前属性值变化的回调函数  ==> setter
+    */
+    /* 
+    需求: 一个人有姓 / 名 / 姓名 3个属性, 要求:
+          1. 姓名组成: 姓-名
+          2. 改变姓或者名, 姓名也会对应改变
+          3. 改变姓名, 姓和名也会对应改变
+    问题1: 如果判断一个函数是回调函数?
+        1. 你定义的
+        2. 你没有直接调用它
+        3. 它最终会执行(在某个条件下)
+    问题2: 关于回调函数需要知道的3个点?
+        1. 什么时候/条件下调用?
+        2. 用来做什么的?
+        3. 函数中的this是什么?
+    */
+    // div.onclick = function () {
+      
+    // }
+    // setTimeout(function () {
+      
+    // }, 1000)
+
+
+
+    // const p = {
+    //   firstName: 'A',
+    //   lastName: 'B',
+    //   // fullName: 'A-B'
+    //   // 当读取属性值时调用, 将函数的返回值作为属性值, this是属性所属的对象
+    //   get fullName () {
+    //     console.log('fullName getter')
+    //     // 动态计算结果返回
+    //     return this.firstName + '-' + this.lastName
+    //   },
+    //   // 当读设置属性时时调用, 用来监视属性值变化, this是属性所属的对象
+    //   set fullName (value) {// 当设置了属性值就会自动调用
+    //     console.log('fullName setter', value)
+    //     // 同步更新firstName和lastName
+    //     const names = value.split('-') // ['E', 'F']
+    //     this.firstName = names[0]
+    //     this.lastName = names[1]
+    //   }
+    // }
+
+    // console.log(p.fullName)  // A-B
+
+    // /* 改变姓或者名, 姓名也会对应改变 */
+    // p.firstName = 'C'
+    // p.lastName = 'D'
+    // console.log(p.fullName) // 应该是C-D?
+
+    // /* 改变姓名, 姓和名也会对应改变 */
+    // p.fullName = 'E-F'
+    // console.log(p.firstName, p.lastName) // 应该是E F
+
+
+
+
+    /* 
+      需求: 给一个人(有姓/名) 添加姓名属性, 要求:
+            1. 姓名组成: 姓-名
+            2. 改变姓或者名, 姓名也会对应改变
+            3. 改变姓名, 姓和名也会对应改变
+      */
+      'use strict'
+      var p = {
+        firstName: 'A',
+        lastName: 'B'
+      }
+
+      /* 
+      语法: Object.defineProperty(obj, prop, descriptor)
+      - obj为目标对象
+      - prop为属性名
+      - descriptor为属性描述符 ==> 描述属性相关信息的配置对象
+        - get: 属性的 getter 函数
+        - set: 属性的 setter 函数
+        - value: 属性的初始值
+        - writable: 标识属性值是否可修改的布尔值
+        - enumerable: 标识是否可以被枚举遍历的布尔值
+        - configurable: 标识是否可以重新定义的布尔值
+
+      配置对象: 对象中的属性名或方法名只能是特定的一些名称
+            每个属性/方法都称为一个配置选项
+      问题: 属性与方法的关系?
+      */
+      // Object.defineProperty(p, 'fullName', {
+      //   get: function () {
+      //     console.log('get()')
+      //     return this.firstName + '-' + this.lastName
+      //   },
+      //   set: function (value) {
+      //     console.log('set', value)
+      //     const names = value.split('-')
+      //     this.firstName = names[0]
+      //     this.lastName = names[1]
+      //   }
+      // })
+
+      // console.log(p.fullName)  // A-B
+
+      // // /* 改变姓或者名, 姓名也会对应改变 */
+      // p.firstName = 'C'
+      // p.lastName = 'D'
+      // console.log(p.fullName) // 应该是C-D?
+
+      // // /* 改变姓名, 姓和名也会对应改变 */
+      // p.fullName = 'E-F'
+      // console.log(p.firstName, p.lastName) // 应该是E F
+
+      /* 了解一下下面4个配置 */
+      // Object.defineProperty(p, 'fullName2', {
+      //   value: p.firstName + '-' + p.lastName, // 属性的初始值
+      //   writable: false, // 标识属性值是否可修改的布尔值
+      //   configurable: false, // 标识是否可以重新定义的布尔值
+      //   enumerable: false,  // 标识是否可以被枚举遍历的布尔值
+      // })
+      // console.log(p.fullName2)
+      // p.fullName2 = 'C-D' // TypeError: Cannot assign to read only property 'fullName2' 
+      // console.log(p.fullName2)
+      // Object.defineProperty(p, 'fullName2', {
+      //   writable: true
+      // })
+      // keys(): 得到对象自身所有可遍历的属性名的数组
+      // Object.keys(p).forEach(key => {
+      //   console.log(key)
+      // })
+
+      
+
+      /* 
+        Object.defineProperties()   (了解)
+        功能与defineProperty类似, 但可以一次定义多个属性
+      */
+      // var obj = {
+      //   name: 'foo'
+      // }
+      // Object.defineProperties(obj, {
+      //   color: {
+      //     value: "yellow",
+      //     enumerable: true
+      //   },
+      //   length: {
+      //     value: "10m",
+      //   }
+      // })
+      // console.log(obj)
+
+      
+
+      /* 
+      Object.create()    (次重要)
+        - 功能: 用于创建指定对象的子对象, 并可以扩展新的属性
+        - 语法:  Object.create (prototype, descriptors)
+          - prototype:  指定隐式原型对象(也就是父对象)
+          - descriptors: 包含一个或多个属性描述符的对象
+      */
+      const obj1 = {
+        name1: 'abc',
+        foo: function () {
+          console.log('foo()')
+        }
+      }
+
+      /* 创建obj1的子对象: obj1是obj2的原型对象 */
+      const obj2 = Object.create(obj1)
+      console.log(obj2)
+      console.log(obj2.__proto__ === obj1) // true
+      console.log(obj2.name1)
+      obj2.foo()
+
+      const obj3 = Object.create(obj1, {
+        name2: {
+          value: 'aaa',
+          enumerable: true
+        },
+        name3: {
+          value: 'bbb'
+        }
+      })
+      obj3.bar = function () {
+        
+      }
+      console.log(obj3)
+
+      //创建一个干净的对象: 没有自己的属性也没有原型对象
+      const obj4 = Object.create(null)
+      console.log('obj4', obj4)
+
+      // const obj4 = {}
+      // obj4.__proto__ = obj1
+  </script>
+</body>
+</html>

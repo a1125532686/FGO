@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    new Promise((resolve, reject) => {
+      // reject()
+    }).then(
+      value => {
+        console.log('onResolved', value)   // 1
+      },
+      reason => {
+        console.log('onRejected', reason) // 2
+      }
+    ).then(
+      value => {
+        console.log('onResolved2', value)   // 3
+        throw 4
+      },
+      reason => {
+        console.log('onRejected2', reason) // 4
+      }
+    ).finally(() => {
+      console.log('无论成功还是失败都会调用')
+    })
+
+    /* 
+    如果我们产生了一个失败的promise, 却没有指定失败的回调函数来处理 => 控制强输出错误
+    */
+  </script>
+</body>
+</html>

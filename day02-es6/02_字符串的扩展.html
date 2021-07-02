@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="wrap"></div>
+  <script>
+    /* 演示 */
+    const data = {
+      message: {
+        title: "今天天气真的很好",
+        todo: "打台球",
+        time: "时间2020.3.25"
+      }
+    }
+    const wrapDiv = document.getElementById("wrap")
+
+    /* 不使用模板字符串: 拼串 */
+    let str = '<div class="box"><h2> ' 
+                + data.message.title + '</h2><p>' 
+                + data.message.todo + '</p><p>' 
+                + data.message.time + '</p></div> '
+    /* 使用模板字符串 */
+    str = `<div class="box">
+            <h1>${data.message.title}</h1>
+            <p>${data.message.todo}</p>
+            <p>${data.message.time}</p>
+          </div>`
+
+    wrapDiv.innerHTML = str
+
+    function fn(){
+        return "hello";
+    }
+    let str2 = `${fn()} world`;
+    console.log(str2);//hello world
+
+    /* 
+    表达式: 
+      会返回特定结果的式子: 3/变量/可以带运算符/函数调用
+      表达式本身是不是一个完整的指令, 不能单独存在, 需要组合形成语句
+    语句: 
+      完整的指令, 可以单独存在
+      语句中包含了表达式
+    */
+
+
+    /* 
+    体验: 字符串新增的方法
+    */
+
+    const {log} = console
+
+    let message = "      hello    world      "
+    log(message)
+
+    log(message.trim()) // 'hello    world'
+    log(message.trimStart()) // 'hello    world      '
+    log(message.trimEnd()) // '     hello    world'
+
+    message = 'hello    world'
+    log(message.startsWith("hello"))// true
+    log(message.endsWith("world"))// true
+    log(message.endsWith("worl"))// false
+    log(message.includes("or"))// true
+    log(message.includes("ord"))// false
+
+    message = "晶哥，你好s啊"
+    log(message.repeat(3))
+
+
+    message = "这个是密码"
+    log(message.padStart(8, '#')) // ###这个是密码
+    log(message.padEnd(8, '#')) // 这个是密码###
+    log(message.padStart(8, '#*2222')) // #*2这个是密码
+  </script>
+</body>
+</html>

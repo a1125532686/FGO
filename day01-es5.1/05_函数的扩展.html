@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+    区别call与bind
+      call(): 调用函数, 指定函数的this为call的第一个参数对象
+      bind(): 返回新函数, 执行新函数会自动调用原函数, 且this为bind的第一个参数对象
+     */
+    var a = 2
+    function fn () {
+      console.log(this, this.a)
+    }
+    var obj = {
+      a: 3
+    }
+    // fn()
+    // fn.call(obj)
+
+    const fn2 = fn.bind(obj)
+    fn2()
+    fn()  // this是window
+
+    // Function.prototype.bind = function (obj) {
+    //   console.log(this) // this就是要执行的函数 ==> fn
+    //   var fun = this
+    //   return function () {
+    //     return fun.call(obj)
+    //   }
+    // }
+
+    /* 
+    函数对象: 将函数作为对象使用 ==> 函数名.xxx
+    实例对象: new 构造函数产生的对象
+    */
+
+  </script>
+</body>
+</html>

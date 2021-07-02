@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 通过构造函数创建实例 */
+    // 定义构造函数
+    function Person(name, age) {
+      this.name = name
+      this.age = age
+    }
+    // 添加静态属性
+    Person.staticProp = 'abc'
+
+    // 在原型对象上定义方法
+    Person.prototype.sayInfo = function () {
+      console.log(`我叫${this.name}, 今年${this.age}`)
+    }
+
+    // 创建实例
+    // const p = new Person('A', 12)
+    // console.log(p)
+    // console.log(p.name, p.age, Person.staticProp)
+    // p.sayInfo()
+
+    console.log('---------------------')
+
+    /* 通过类创建实例 */
+    // 定义类
+    class Person2 {
+      // 定义静态属性
+      static staticProp = 'cba'
+
+      // 定义构造器
+      constructor (name, age) {
+        this.name = name
+        this.age = age
+      }
+      // 定义方法  ==> 自动添加到原型对象上去
+      sayInfo () {
+        console.log(`偶叫${this.name}, 今年${this.age}`)
+      }
+    }
+    // 创建实例
+    // const p2 = new Person2('B', 13)
+    // console.log(p2)
+    // console.log(p2.name, p2.age, Person2.staticProp)
+    // p2.sayInfo()
+
+    /* 类的本质是函数 */
+    console.log(typeof Person2)
+
+
+    /* 
+    实现基于构造函数的继承
+    1. 借用父类构造函数
+    2. 子类型原型指向父类型实例
+    3. 让子类型的原型对象的构造器为子类型
+    */
+    function Student(name, age, price) {
+      // this.name = name
+      // this.age = age
+      /* 1. 借用父类构造函数 */
+      Person.call(this, name, age)
+
+      this.price = price
+    }
+
+    /* 2. 子类型原型指向父类型实例 */
+    Student.prototype = new Person()
+    /* 3. 让子类型的原型对象的构造器为子类型 */
+    Student.prototype.constructor = Student
+    // 重定(重新实现)从父类型继承来的方法
+    Student.prototype.sayInfo = function () {
+      console.log(`我叫${this.name}, 今年${this.age}, 月薪${this.price}`)
+    }
+
+    // 创建子类型实例
+    const s = new Student('BZ', 21, 15000)
+    console.log(s.name, s.age, s.price)
+    s.sayInfo()
+    console.log(s.constructor)
+    console.log(s)
+
+    console.log('------------------------------')
+
+    /* 
+    实现基于类的继承
+    1. extends: 指定继承的类
+    2. super(): 调用父类型构造器
+    */
+    class Student2 extends Person2 {
+      constructor (name, age, price) {
+        // 调用父类型构造器
+        super(name, age)
+        this.price = price
+      }
+
+      // 重写继承的方法
+      sayInfo () {
+        console.log(`偶叫${this.name}, 今年${this.age}, 月薪${this.price}`)
+      }
+    }
+    const s2 = new Student2('BZ2', 22, 13000)
+    console.log(s2.name, s2.age, s2.price)
+    s2.sayInfo()
+    console.log(s2.constructor)
+    console.log(s2)
+
+
+  </script>
+</body>
+</html>

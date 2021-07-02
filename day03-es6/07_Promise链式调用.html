@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+    演示回调地狱
+      请求数据a
+      成功后，请求数据b
+      成功后，请求数据c
+      成功后，显示数据c
+
+      使用打印和定时器模拟
+    */
+    // console.log('发异步请求1获取数据')
+    // setTimeout(() => {
+    //   console.log('请求1成功了，发异步请求2获取数据')
+    //   setTimeout(() => {
+    //     console.log('请求2成功了， 发异步请求3获取数据')
+    //     setTimeout(() => {
+    //       console.log('请求3成功了， 显示数据')
+    //     }, 1000)
+    //   }, 1000)
+    // }, 1000)
+
+
+    /* 利用promise的链式调用解决回调地狱问题 */
+    new Promise((resolve, reject) => {
+      console.log('发异步请求1获取数据')
+      setTimeout(() => {
+        resolve({message: '请求1的成功数据'})
+      }, 1000)
+    }).then(value => { // 得到前面promise的成功的value数据
+      console.log('得到请求1成功的数据', value)
+      // 可以去执行新的异步任务 
+      return new Promise((resolve, reject) => {  // 3
+        console.log('发异步请求2获取数据')
+        setTimeout(() => {
+          resolve({message: '请求2的成功数据'})
+        }, 1000)
+      })
+    }).then(value => {
+      console.log('得到请求2成功的数据', value)
+      // 可以去执行新的异步任务 
+      return new Promise((resolve, reject) => {  // 3
+        console.log('发异步请求3获取数据')
+        setTimeout(() => {
+          resolve({message: '请求3的成功数据'})
+        }, 2000)
+      })
+    }).then(value => {
+      console.log('得到请求3成功的数据', value)
+    })
+
+
+
+  </script>
+</body>
+</html>

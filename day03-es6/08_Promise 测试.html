@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+
+    start
+    222
+    end
+
+    444
+    555
+    777
+
+    */
+   /* 
+   then如果没有指定失败的回调, 默认会传这样一个函数:reason => throw reason 
+   执行器函数的2个形参, 要看顺序, 不要只是盯着名称
+   catch(onRejected), 相当于 then(value => value, onRejected)
+   */
+
+    console.log('start')
+
+    const promise = new Promise((resolve, reject) => { // 执行器函数同步执行
+      reject()
+      console.log(222)
+    })
+
+    promise
+      .then(
+        () => {
+          console.log(333)
+          return new Promise((resolve) => {
+            reject()
+          })
+        },
+        // reason => {throw reason} // 默认是它
+      )  // 返回的promise的结果?  ==> 失败的
+      .catch(() => {
+        console.log(444)
+      }) // 返回的promise的结果? ==> 成功的
+      .then(() => {
+        console.log(555)
+        return new Promise((reject, resolve) => {// 参数名是反的, 要看顺序
+          reject()
+          // resolve()
+        })
+      }) // 返回的promise的结果? ==>  成功的
+      .catch(  
+        /* 
+          相当于
+          then(
+            value => value,
+            () => {}
+          )
+          */
+        () => {
+          console.log(666)
+          throw new Error("报错了~")
+        }
+      ) // 返回的promise的结果? ==> 成功的
+      .then(() => {
+        console.log(777)
+      })
+
+    console.log('end')
+
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+    - Promise.resolve()：创建一个成功promise的简洁语法
+    - Promise.reject()：创建一个失败promise的简洁语法
+    - Promise.all([promise1, ...]) 传入n个promise对象，
+    只有n个promise对象的状态都成功，才成功，只要有一个失败，就失败
+    成功的value是, 数组中promise的value的数组
+    失败的reason, 就是数组中第一个失败的promise的reason
+    */
+    /* 创建一个立即成功的promise对象 */
+    const p1 = new Promise(resolve => {
+      resolve(2)
+    })
+    const p2 = Promise.resolve(3)
+    console.log(p1, p2)
+
+    /* 创建一个立即失败的promise对象 */
+    const p3 = new Promise((resolve, reject) => {
+      reject(4)
+    })
+    const p4 = Promise.reject(5)
+    console.log(p3, p4)
+
+    const p5 = Promise.all([p1, p2])
+    console.log(p5) // 成功了 value是[2, 3]
+    const p6 = Promise.all([p1, p3, p2, p4])
+    console.log(p6) // 失败了  reason是4
+
+  </script>
+</body>
+</html>

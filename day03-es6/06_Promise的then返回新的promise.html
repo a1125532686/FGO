@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+    then方法返回的新promise对象结果状态如何确定？
+    - 简洁表达：由then指定的回调函数执行的结果决定
+    - 详细表达：4种情况
+      - 如果抛出了错误  ==》 失败，reason为抛出的错误
+      - 如果返回失败的promise ==> 失败， reason为返回的失败promise的reason
+      
+      - 如果返回成功的promise ==> 成功， value为返回的成功promise的value
+      - 其它所有情况 ==》 成功，value为函数返回的结果
+    */
+    new Promise((resolve, reject) => {
+      // 启动异步任务
+      setTimeout(() => {
+        // resolve(2)
+        reject(3)
+      }, 1000)
+    }).then(
+      value => {
+        console.log('onResolved1', value)
+      },
+      reason => {
+        console.log('onRejected1', reason)
+        // - 如果抛出了错误  ==》 失败，reason为抛出的错误
+        // throw new Error('失败')
+        throw 4
+        
+        // - 如果返回失败的promise ==> 失败， reason为返回的失败promise的reason
+        // return new Promise((resolve, reject) => {
+        //   reject(5)
+        // })
+
+        // - 如果返回成功的promise ==> 成功， value为返回的成功promise的value
+        // return new Promise((resolve, reject) => {
+        //   resolve(6)
+        // })
+
+        // - 其它所有情况 ==》 成功，value为函数返回的结果
+        // return undefined
+        // return 7
+      }
+    ).then(
+      value => {
+        console.log('onResolved2', value)
+      },
+      reason => {
+        console.log('onRejected2', reason)
+        return 5
+      }
+    ).then(
+      value => {
+        console.log('onResolved3', value)  // 5
+        throw 6
+      },
+      reason => {
+        console.log('onRejected3', reason)
+      }
+    ).catch(reason => {
+      console.log('catch onRejected4', reason)
+    }).then(
+      value => {
+        console.log('onResolved5', value)
+      },
+      reason => {
+        console.log('onRejected5', reason)
+      }
+    )
+
+    /* 
+    then()指定回调函数用于接收promise(前面的)对象的结果数据
+    then()返回的promise的结果状态由什么决定?
+    */
+
+  </script>
+</body>
+</html>

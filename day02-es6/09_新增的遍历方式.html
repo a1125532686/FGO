@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /* 演示: 自定义遍历器演示 */
+    // const arr = [1, 2, 3, 6];
+
+    // function iterator() {
+    //   //用一个计数器，保存现在处理到哪里了
+    //   let index = 0;
+    //   return {
+    //     next: () => {
+    //       if (index < arr.length) {
+    //         return {
+    //           value: arr[index++],
+    //           done: false
+    //         }
+    //       } else {
+    //         return {
+    //           done: true
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
+
+    // //只要调用这个iterator函数，就可以依次得到成员了
+    // const it = iterator()
+    // console.log(it)
+    // // console.log(it.next())
+    // // console.log(it.next())
+    // // console.log(it.next())
+    // // console.log(it.next())
+    // let {
+    //   value,
+    //   done
+    // } = it.next()
+    // while (!done) {
+    //   console.log(value)
+    //   const item = it.next()
+    //   value = item.value
+    //   done = item.done
+    // }
+
+    /* 
+    使用for...of 遍历string/array/set/map
+    for...of能遍历内部实现了iterator接口的类型数据
+      string/array/set/map都实现了iterator接口
+    for...of不能遍历object对象：因为Object内部没有实现iterator接口
+    要想遍历object对象需要使用for...in
+  
+    */
+
+    /* 遍历字符串 */
+    const str = 'abcd'
+    for (const value of str) {
+      console.log(value)
+    }
+    
+    /* 遍历数组 */
+    const arr = [2, 3, 5]
+    for (const value of arr) {
+      console.log(value)
+    }
+
+    // 不能使用for...of遍历object对象
+    const obj = {a: 1, b: 2}
+    // for (const item of obj) { // TypeError: obj is not iterable
+    //   console.log(item)
+    // }
+    // 使用for...in遍历object对象
+    for (const key in obj) {
+      console.log(key, obj[key])
+    }
+
+    Object.keys(obj).forEach(key => {
+      console.log(key, obj[key])
+    })
+
+  </script>
+</body>
+
+</html>

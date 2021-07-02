@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /*ES6之前没有块作用域*/
+    // {
+    //   var a1 = 2 // a1是全局变量
+    // }
+    // console.log(a1) // 2 {}块外可见
+
+    // if (true) {
+    //   var a2 = 3 // a2是全局变量
+    // }
+    // console.log(a2) // 3 if块外可见
+
+
+    /* if块中想内部使用的变量外部也可访问了 */
+    // var flag = true
+    // if (flag) {
+    //     var name = 'abc' // 只想内部使用
+    // }
+    // console.log(name) // 外部也可访问了， 
+
+    // 用来计数的循环变量泄露为全局变量。
+    //变量i是var命令声明的，在全局范围内都有效，所以全局只有一个变量i。每一次循环，变量i的值都会发生改变
+    // for (var i = 0; i < 5; i++) {
+    //   setTimeout(function () {  
+    //     console.log(i) // 55555
+    //   }, 0)
+    // }
+    // console.log(i)
+
+    /* 使用let定义变量 */
+    // let a = 2
+    // a = 3
+    // console.log(a)
+
+    /* 使用块级作用域（let定义的变量属于块级作用域） 防止全局变量污染 */
+
+    /* {}块 */
+    // {
+    //   let a = 3
+    // }
+    // console.log(a) // ReferenceError: a is not defined
+
+    /* if块 */
+    // if (true) {
+    //   let a = 4
+    // }
+    // console.log(a) // ReferenceError: a is not defined
+
+    /* while块 */
+    // let i = 1
+    // while (i<2) {
+    //   let a = 5
+    //   i++
+    //   console.log(i) 
+    // }
+    // console.log(a) // ReferenceError: a is not defined
+
+    /* for块
+      for循环的()中定义的let变量相当于是在{}中定义的
+      每个遍历都会重新let i, 产生一个新的块
+    */
+    // for (let i = 0; i < 5; i++) {
+    //   // let i = 2
+    //   setTimeout(function () {  
+    //     console.log(i) // ?
+    //   }, 0)
+    // }
+    // console.log(i) // ReferenceError: i is not defined
+
+    
+    //练习1：
+    // var a = [];
+    // for (var i = 0; i < 10; i++) {
+    //     a[i] = function () {
+    //         console.log(i);
+    //     };
+    // }
+    // a[6]();  // ? 10
+
+    // 练习2:
+    // var a = [];
+    // for (let i = 0; i < 10; i++) {
+    //     a[i] = function () {
+    //         console.log(i);
+    //     };
+    // }
+    // a[6](); // 6
+
+    /* 
+    let与var的区别?
+    1. let有块级作用域
+    2. let变量没有变量提升
+    3. let变量不能重复定义
+    4. let全局变量不会成为window对象的属性
+    */
+    // 2. let变量没有变量提升
+    /* 
+    细节? let变量是否有声明提升?
+      提升了变量的定义, 但没有做初始化 ==> 无法访问
+      名称: 暂时性死区: let变量之前的区域(在区域内不能访问变量)
+    */
+    // console.log(c) // undefined: 因为var a提前执行了声明, 且初始化赋值为undefined
+    // // console.log(b) // ReferenceError: b is not defined
+    // console.log(a) // ReferenceError: Cannot access 'a' before initialization
+    // let a = 2
+    // var c = 3
+
+    // 3. let变量不能重复定义
+    // let a = 2
+    // let a = 3 // SyntaxError: Identifier 'a' has already been declared
+    // console.log(a)
+
+    // 4. let全局变量不会成为window对象的属性
+    // let a = 4
+    // console.log(window.a)
+
+
+
+    // - `const`声明的变量只读， 不能修改 ==》 常量
+    // const a = 3
+    // a = 4 // TypeError: Assignment to constant variable.
+    // console.log(a)
+
+    // - 注意: 引用类型const常量所指向的对象内部可以修改
+    // const a = {
+    //   m: 1
+    // }
+    // // a = {} //不可以
+    // a.m = 2  // 并没有修改a本身的值
+    // console.log(a)
+
+    // - const常量必须声明时同时赋值
+    // const a // SyntaxError: Missing initializer in const declaration
+    // a = 4
+
+    const PI = 3.14159267  // 常量名可以写成大写
+    // 在定义变量时， 优先考虑用const， 如果确认需要修改时再改为let
+    let a = {
+    }
+    const b = function () {
+    }
+    const c = 12
+
+    a = {m: 1}
+
+  </script>
+</body>
+</html>

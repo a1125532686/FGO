@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>11_宏队列与微队列</title>
+  </head>
+  <body>
+
+    <script>
+      /* 
+      ==> 先执行完所有的微任务, 再执行第一个宏任务, 
+      ==> 再执行完所有的微任务, 再执行第一个宏任务
+      宏队列: []
+      微队列: []
+      输出: 3-2-5-1-6-4
+
+      总结执行顺序:
+      1. 执行初始化同步代码(全部执行完)
+      2. 先执行完所有的微任务, 再执行第一个宏任务
+      3. 循环步骤2
+
+        在取出第一个宏任务执行前必须先执行完所有有微任务
+      */
+
+      setTimeout(() => {
+        console.log(1)
+        Promise.resolve().then(value => {
+          console.log(6)
+        })
+      }, 0)
+      Promise.resolve().then(value => {
+        console.log(2)
+      })
+      setTimeout(() => {
+        console.log(4)
+      }, 0)
+      Promise.resolve().then(value => {
+        console.log(5)
+      })
+      console.log(3)
+    </script>
+
+    <!-- <script>
+      /* 
+        宏队列: [宏任务1，宏任务2.....]
+        微队列: [微任务1，微任务2.....]
+        规则：每次要执行宏队列里的第一个任务之前，先要执行完微队列里所有的微任务
+      */
+      console.log('start')
+      setTimeout(() => {
+        console.log('定时器回调执行1')
+        Promise.resolve().then(() => {
+          console.log('onResolved回调执行3')
+        })
+      }, 0)
+      setTimeout(() => {
+        console.log('定时器回调执行2')
+      }, 0)
+      Promise.resolve().then(() => {
+        console.log('onResolved回调执行1')
+      })
+      Promise.resolve().then(() => {
+        console.log('onResolved回调执行2')
+      })
+      console.log('end')
+    </script> -->
+  </body>
+</html>

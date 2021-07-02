@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    /* 对象的属性与方法简写 */
+    // const name = 'abc'
+    // // 先不用简写
+    // const obj1 = {
+    //   name: name,
+    //   foo: function () {
+    //     console.log('foo()')
+    //   }
+    // }
+    // /* 简写 */
+    // const obj2 = {
+    //   name, // 当属性值变量名与属性名同名时只用写属性名
+    //   foo () { // 方法省略function
+    //     console.log('foo()')
+    //   }
+    // }
+
+    /* 
+    属性名表达式
+    */
+    // const myPropName = 'myName'
+    // const obj3 = {
+    //   name: 'tom',
+    //   age: 12,
+    // }
+    // // 给对象添加一个动态属性名的属性  ==》 ES5
+    // obj3[myPropName] = 23
+
+    // // 在定义对象时， 就定义动态属性名的属性 ==》 ES6
+    // const myMethod = 'test'
+    // const obj4 = {
+    //   [myPropName]: 'abc',
+    //   [myMethod] () {
+    //     console.log(myMethod)
+    //   }
+    // }
+    // console.log(obj4[myPropName])
+    // obj4[myMethod]()
+
+
+    /* 
+    对象的扩展运算符
+    */
+    // const obj = {a: 2, b: 3}
+    // const obj2 = {...obj}
+    // console.log(obj2)
+    // const obj3 = {c: 4, d: 5}
+    // const obj4 = {...obj, ...obj3}
+    // console.log(obj4)
+    // const {a, ...obj5} = obj4 // 得到除了a属性外所有属性的对象
+    // console.log(obj5)
+
+
+    /* 
+    - Object.is(v1, v2): 判断2个值是否相等 相当于===, 但修复NaN不等自己的问题
+    - Object.assign(obj1, ...objs): 将任意多个对象合并到obj1中， 并返回obj1
+    */
+   console.log(Object.is(1, 1), Object.is({}, {})) // true false
+   console.log(NaN===NaN, Object.is(NaN, NaN)) // false true
+
+   const obj = {a: 1}
+   const obj2 = {b: 3}
+   const obj3 = {c: 5}
+   const obj4 = Object.assign(obj, obj2, obj3)
+   console.log(obj4, obj, obj4===obj)
+
+  </script>
+</body>
+</html>

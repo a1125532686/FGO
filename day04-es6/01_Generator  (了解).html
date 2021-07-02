@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!--点击提示剩余次数-->
+  <button id="btn">点击抽奖</button>
+  <!-- <script>
+    const oBtn = document.getElementById("btn")
+    const start = gen()
+    oBtn.onclick = function () {
+        start.next()
+    }
+    function draw(count) {
+        alert("还剩" + (count - 1) + "次机会")
+    }
+    function* gen() {
+        //..
+        yield draw(5)
+        //..
+        yield draw(4)
+        //..
+        yield draw(3)
+        //..
+        yield draw(2)
+        //..
+        yield draw(1)
+    }
+  </script> -->
+
+  <script>
+    /*
+      需求：请求a数据，再请求b数据，请求c数据
+    */
+    function* fn() {
+        yield setTimeout(() => {
+            console.log("a数据成功了")
+            iteratorObj.next() // 执行下一段代码
+        }, 1000)
+  
+        yield setTimeout(() => {
+            console.log("b数据成功了")
+            iteratorObj.next() // 执行下一段代码
+        }, 2000)
+  
+        yield setTimeout(() => {
+            console.log("c数据成功了")
+            iteratorObj.next(); // 执行下一段代码
+        }, 3000)
+  
+        console.log('全部数据请求回来~')
+    }
+  
+    const iteratorObj = fn()
+    iteratorObj.next()
+  </script>
+
+  <!-- <script>
+
+    /* 定义generator函数 */
+    function* gen() {
+        yield "状态1"
+        yield "状态2"
+        yield "状态3"
+        yield "状态4"
+    }
+
+    /* 
+    调用了generator后返回的是迭代器对象
+    每次调用next()就可以得到yield右侧表达式的值
+    */
+    let it = gen()
+    console.log(it)
+    console.log(it.next())
+    console.log(it.next())
+    console.log(it.next())
+    console.log(it.next())
+    console.log(it.next())
+  </script> -->
+</body>
+</html>

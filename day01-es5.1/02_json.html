@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // js对象   对象字面量: 用{}创建对象
+    // var obj = {
+    //   name: 'tom',
+    //   age: 18,
+    //   likes: ['football', 'basketball', 'pingpang']
+    // }
+
+    // js数组   数组字面量: 用[]创建数组
+    // var arr = [{
+    //     name: 'tom',
+    //     age: 18,
+    //     likes: ['football', 'basketball', 'pingpang']
+    //   },
+    //   {
+    //     name: 'jack',
+    //     age: 21,
+    //     likes: ['pingpang']
+    //   }
+    // ]
+
+    /* 
+    JSON对象: 专门用来做 json 字符串与 js 对象/数组之间的相互转换的内置对象
+      stringify(js对象/数组): 将js对象或数组转换为json字符串
+      parse(json): 将json字符串解析为js对象或数组 
+    */
+    // console.log(JSON)
+
+    /* stringify(js对象/数组): 将js对象或数组转换为json字符串 */
+    // const objJSON = JSON.stringify(obj)
+    // const arrayJSON = JSON.stringify(arr)
+    // console.log(objJSON)
+    // console.log(arrayJSON)
+
+    /* parse(json): 将json字符串解析为js对象或数组 */
+    // console.log(JSON.parse(objJSON))
+    // console.log(JSON.parse(arrayJSON))
+
+
+    /* 
+    利用 JSON 对象实现对象深拷贝
+    */
+    const obj = {
+      a: 1,
+      b: {
+        m: 'abc'
+      },
+      c: [2, 3],
+      fn: function () {
+        
+      }
+    }
+    const obj2 = JSON.parse(JSON.stringify(obj))
+    console.log(obj2, obj2===obj)
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="./Promise.js"></script>
+  <script>
+    const p = new Promise((resolve, reject) => {
+      console.log('executor')
+      // 启动异步任务
+      setTimeout(() => {
+        // 如果成功了, 调用resolve
+        // resolve(2)  // promise对象变为成功了, 此时内部有待执行的回调函数 ==> 执行回调函数
+        // 如果失败了, 调用reject
+        reject(3)
+
+        console.log('reject()之后')
+      }, 2000)
+    })
+    console.log(p)
+    p.then(  // 如果当前promise对象还是pending, 内部得先将回调保存起来
+      value => {
+        console.log('onResolved', value)
+      },
+      reason => {
+        console.log('onRejected', reason)
+      }
+    )
+    p.then(
+      value => {
+        console.log('onResolved2', value)
+      },
+      reason => {
+        console.log('onRejected2', reason)
+      }
+    )
+
+    /* 
+    [
+      [value => {}, reason => {}],
+      [value => {}, reason => {}]
+    ]
+
+    [
+      {onResolved: value => {}, onRejected: reson => {}}
+      {onResolved: value => {}, onRejected: reson => {}}
+    ]
+    */
+  </script>
+</body>
+</html>

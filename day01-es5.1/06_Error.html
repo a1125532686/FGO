@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+    Error有3个常见的子类型
+      - ReferenceError: 引用了不存在的变量
+      - TypeError：类型不对
+      - SyntaxError： 语法错误
+    */
+
+    /* 演示常见的内置错误 */
+
+    /* ReferenceError: 引用了不存在的变量 */
+    // try {
+    //   console.log(a)  // Uncaught ReferenceError: a is not defined
+    // } catch (error) {
+    //   console.log('捕获到错误', error.message)
+    // }
+    // console.log('-----')
+
+    /* TypeError：类型不对 */
+    // var b = {}
+    // b() // Uncaught TypeError: b is not a function
+
+    /* SyntaxError： 语法错误 */
+    // var c = "abc"dddd"" // Uncaught SyntaxError: Unexpected identifier
+
+
+    function fn(day) {// day必须限制在1--31之间
+      // 如果day没有在1--31间, 抛出错误
+      if (day<1 || day>31) {
+        throw new Error('day必须限制在1--31之间')
+      }
+
+      console.log('今天是' + day + '号')
+    }
+    try {
+      fn(12)
+      fn(-1)
+    } catch (e) {
+      alert(e.message)
+    }
+
+    try {
+      throw 2
+    } catch (e) {
+      console.log(e)
+    }
+    
+
+  </script>
+</body>
+</html>

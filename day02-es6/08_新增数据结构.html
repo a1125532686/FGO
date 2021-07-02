@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+     /* 演示: 为什么会有Map，因为对象属性名称必须是字符串，如果是其他类型也会自动转为字符串 */
+    // const p1 = { name: "lily" };
+    // const obj = {
+    //     id: 1,
+    //     [p1]: "good"  // 最终属性名是p1.toString()的结果：'[object Object]'
+    // }
+    // console.log(obj)
+
+    // const map = new Map()
+    // map.set('id', 1)
+    // map.set(p1, 'good')
+    // console.log(map)
+
+    /* 
+    - `size`属性返回 Map 结构的成员总数。
+    - `set`方法设置键名`key`对应的键值为`value`，然后返回整个 Map 结构。如果`key`已经有值，则值会被更新。`set`方法返回的是当前的`Map`对象，因此可以采用链式写法。
+    - `get`方法读取`key`对应的键值，如果找不到`key`，返回`undefined`。
+    - `has`方法返回一个布尔值，表示某个键是否在当前 Map 对象之中。
+    - `delete`方法删除某个键，返回`true`。如果删除失败，返回`false`。
+    - `clear`方法清除所有成员，没有返回值。
+    - `forEach()`：遍历 Map 的所有成员。
+    */
+    // const p1 = { name: "lily" }
+    // const map = new Map([
+    //   ['id', 123],
+    //   [p1, 'abc']
+    // ])
+    // console.log(map, map.size)
+    // // 添加
+    // map.set('age', 100)
+    // console.log(map)
+    // // 读取
+    // console.log(map.get('age'), map.get(p1))
+    // // 根据key来判断是否存在
+    // console.log(map.has(p1))
+    // // 根据key删除
+    // map.delete(p1)
+    // console.log(map)
+
+    // // 遍历 
+    // map.forEach((value, key) => {
+    //   console.log(key, value)
+    // })
+
+    // // 清空
+    // map.clear()
+    // console.log(map)
+
+
+    /* 
+    - size 返回set的长度
+    - add 添加某个值，返回 Set 结构本身。
+    - delete 删除某个值，返回一个布尔值，表示删除是否成功。
+    - has 返回一个布尔值，表示该值是否为`Set`的成员
+    - clear 清除所有成员，没有返回值。
+    - `forEach()`：遍历每个成员
+    */
+    /* 
+    set容器用来保存不重复的多个value值  ==> 具有自动去重功能
+    */
+   const set = new Set([2, 4, 2, 5, 4, 6, 'abc'])
+   console.log(set)
+
+   console.log(set.size) // 5
+   set.add(7)
+   set.add(5) // 添加重复了会被忽略
+   console.log(set, set.has(5))
+   set.delete(5)
+   console.log(set, set.has(5))
+   set.forEach(value => console.log(value))
+   set.clear()
+   console.log(set)
+
+   /* 
+   应用：利用Set去重
+   */
+  const arr = [2, 4, 2, 5, 4, 6, 'abc']
+  const arr2 = Array.from(new Set(arr))
+  console.log(arr2)
+  const arr3 = [...new Set(arr)]
+  console.log(arr3)
+
+
+  </script>
+</body>
+</html>

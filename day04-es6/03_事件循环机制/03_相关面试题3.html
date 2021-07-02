@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>12_Promise相关面试题3</title>
+  </head>
+  <body>
+    <script>
+      /* 
+				宏:[]
+				微:[ ]
+        控制台: 3  7  4  1 2 5
+			*/
+      const first = () => {
+        // 成功了, value 2
+        return new Promise((resolve, reject) => { 
+          console.log(3)
+         
+          let p = new Promise((resolve, reject) => {
+            console.log(7)
+
+            setTimeout(() => {
+              console.log(5)
+
+              resolve(6)  // 没有任何效果(在调用前已经成功了)
+            }, 0)
+
+            resolve(1)
+          })
+          // p成功了 value是1
+
+          resolve(2)
+
+          p.then((arg) => {// arg 是 1
+            console.log(arg)
+          })
+
+        })
+      }
+
+      first().then((arg) => { // arg 是 2
+        console.log(arg)
+      })
+      console.log(4)
+    </script>
+  </body>
+</html>

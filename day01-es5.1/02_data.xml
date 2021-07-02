@@ -1,0 +1,25 @@
+<!-- 
+  需求: 存储2个人的信息: 
+	jack/18岁/喜欢football&basketball&pingpang
+	tom/21岁/喜欢pingpang
+ -->
+
+<students>
+  <student id="1">
+    <name>jack</name>
+    <age>18</age>
+    <likes>
+      <like>football</like>
+      <like>basketball</like>
+      <like>pingpang</like>
+    </likes>
+  </student>
+
+  <student id="3">
+    <name>tom</name>
+    <age>21</age>
+    <likes>
+      <like>pingpang</like>
+    </likes>
+  </student>
+</students>

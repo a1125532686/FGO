@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <button id="btn1">test1</button>
+  <button id="btn2">test2</button>
+  <button id="btn3">test3</button>
+  <button id="btn4">test4</button>
+
+  <!-- <script>
+    /* 
+    箭头函数的写法
+    */
+    // 函数表达式
+    const fn = function (a) {
+      return a + 2
+    }
+    // 箭头函数 完整写法
+    const fn2 = (a) => {
+      return a + 2
+    }
+    // 箭头函数 简洁写法
+    /* 
+    简化:
+    1. 用 => 代替了function
+    2. 省略 ()  条件: 只有一个形参
+    3. 省略 {}  条件: 函数体只有一条语句
+    4. 省略 return 条件: 函数体只有一条语句
+    */
+    const fn3 = a => a + 2
+    console.log(fn3(3))
+
+    /* 没有形参 */
+    /* 有多个形参 */
+    const fn4 = () => console.log('fn4()')
+    const fn5 = (a, b) => { // 一旦有大括号, 如果需要返回值, 必须写return
+      console.log(a)
+      console.log(b)
+      return a + b
+    }
+    console.log(fn5(3, 4))
+
+    /* 箭头函数用于回调函数作为参数传递 */
+    setTimeout(() => {
+      console.log('111111')
+    }, 1000)
+    ;[1, 2, 3].forEach((item, index) => {
+      console.log(item, index)
+    })
+
+  </script> -->
+
+
+  <script>
+    /* 
+    区别箭头函数与一般函数
+    */
+   /* 关于this 箭头函数内部没有this，在箭头函数中读取this会沿着作用域链去外部查找this */
+  // document.getElementById('btn1').onclick = function () {
+  //   console.log(this)  // btn1
+  // }
+
+  // document.getElementById('btn2').onclick = () => {
+  //   console.log(this) // window
+  // }
+
+  // document.getElementById('btn3').onclick = function () {
+  //   console.log(this)  // btn3
+  //   const f = () => {
+  //     console.log(this) // btn3
+  //   }
+  //   f()
+  // }
+
+  // document.getElementById('btn4').onclick = () => {
+  //   console.log(this) // window
+  //   const f = () => {
+  //     console.log(this) // window
+  //   }
+  //   f()
+  // }
+
+  /* 箭头函数不能作为构造函数 new 调用创建实例对象 */
+  // const Fn = () => {
+    
+  // }
+  // new Fn() // TypeError: Fn is not a constructor
+
+  /* 箭头函数没有arguments对象 */
+  // function fn (a, b) {
+  //   console.log(arguments) // 包含2, 3, 4的伪数组
+  // }
+  // fn(2, 3, 4)
+  // const fn2 = (a, b) => {
+  //   console.log('fn2', arguments) 
+  //   // ReferenceError: arguments is not defined
+  // }
+  // fn2(3, 4, 5)
+
+    /* 
+    形参默认值
+    */
+    // function fn(a, b='china') {
+    //   console.log(a, b)
+    // }
+    // fn('hello', 'world')
+    // fn('hello')
+    // fn()
+    // fn('aaaaa', null)  // 如果传入null, 认定为传了值
+    // fn('aaaaa', undefined)  // 如果传入undefined, 认定为没有传值
+
+    /* 
+    rest参数(剩余参数) 
+    */
+    function fn(a, ...args) { // args是真数组
+      console.log(a, args)
+    }
+    fn(1, 2, 3, 4)
+
+    const fn2 = (...args) => { // 可以代替arguments
+      console.log(args)
+    }
+    fn2(2, 3, 4)
+
+    function fn3 (...args, a) { 
+      // SyntaxError: Rest parameter must be last formal parameter
+      
+    }
+    fn3(3, 4, 5, 6)
+
+  </script>
+</body>
+</html>

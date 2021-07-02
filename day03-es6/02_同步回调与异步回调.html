@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 同步回调: 在回调函数都执行完后工作(遍历)才结束
+    [1, 2, 3].forEach((item => {
+      console.log(item)
+    }))
+    console.log('forEach()之后')
+
+    // 异步回调: 不会立即执行, 而要等到同步代码都执行完后才会执行
+    const start = Date.now()
+    setTimeout(() => {
+      console.log('定时器回调执行了')
+    }, 0)
+    setTimeout(() => {
+      console.log(Date.now() - start)
+      console.log('定时器回调执行了')
+    }, 100)
+    console.log('setTimeout之后')
+    for (let index = 0; index < 100000000; index++) {
+    }
+  </script>
+</body>
+</html>

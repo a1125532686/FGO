@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+  <button id="btn">test</button>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+  <script>
+    function fn1() {
+      console.log('开始执行一系列的同步任务')
+      for (let index = 0; index < 100; index++) {
+        // 同步
+      }
+    }
+    function fn4() {
+      document.getElementById('btn').onclick = function () {
+        console.log('处理点击事件')
+      }
+    }
+    function fn3() {
+      $.get('https://api.thecatapi.com/v1/images/search', (data) => {
+        console.log('异步请求成功回调', data)
+      })
+    }
+    function fn2() {
+      setTimeout(() => {
+        console.log('定时器回调执行')
+      }, 1000)
+    }
+
+
+    fn1()
+
+    fn2()
+    fn3()
+    fn4()
+    console.log('还有其它同步任务要执行')
+    // for (let index = 0; index < 100000000; index++) {
+      
+    // }
+  </script>
+  </body>
+  </html>
+</body>
+</html>

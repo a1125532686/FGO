@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- <script>
+    /* 
+    - Promise.prototype.then(onResolved, onRejected)
+      - onResolved：指定成功的回调，用于异步接收成功的value
+      - onRejected：指定失败的回调， 用于异步接收失败的reason
+      - 返回值是一个新的promise对象
+    - Promise.prototype.catch(onRejected)
+      - onRejected：指定失败的回调， 用于异步接收失败的reason
+      - 返回值是一个新的promise对象
+    */
+    // 创建promise对象, 内部封装异步操作
+    const p = new Promise((resolve, reject)=> {
+      // 启动异步任务
+      setTimeout(() => {
+        // 如果成功了, 调用resolve指定value
+        // resolve(2)  // pending ==> fulfilled   value是2
+        // 如果失败了, 调用reject指定reason
+        reject(3)
+      }, 1000)
+    })
+
+    // 通过then来指定成功/失败的回调, 来得到成功的value/失败的reason
+    // p.then(onResolved, onRejected)
+    p.then(
+      value => {
+        console.log('onResolved', value)
+      },
+      reason => {
+        console.log('onRejected', reason)
+      }
+    )
+
+    // 通过catch来专门指定失败的回调, 来得到失败的reason
+    // p.catch(onRejected)
+    p.catch(reason => {
+      console.log('catch onRejected', reason)
+    })
+
+    // p.then(null, onRejected)
+
+  </script> -->
+
+  <script>
+    /* then/catch指定的成功或失败回调是: 异步的 */
+    new Promise((resolve, reject) => {
+      // 立即变为成功
+      // resolve()
+      // 立即变为失败
+      reject()
+    }).then(
+      value => {  // onResolved是异步执行的
+        console.log('onResolved', value)
+      },
+      reason => { // onRejected是异步执行的
+        console.log('onRejected', reason)
+      }
+    )
+    console.log('then()之后')
+
+  </script>
+</body>
+</html>
